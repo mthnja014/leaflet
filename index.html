@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>#</title>
-</head>
-<style type="text/css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Display a map</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.2.2/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.2.2/dist/ol.js"></script>
+    <style>
+      #map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+    </style>
+  </head>
+  <body>
+    <div id="map">
+      <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;"><img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a>
+    </div>
+    <script>
+      const key = 'i39Qg6QqR6C1s4K7BGko';
 
-#map {
-position: absolute;
-right: 0px;
-left: 0px;
-top: 0px;
-bottom: 0px;
-}
-</style>
-</head>
-<body>
+      const attribution = new ol.control.Attribution({
+        collapsible: false,
+      });
 
-<div id="map">
+      const source = new ol.source.TileJSON({
+        url: `https://api.maptiler.com/maps/openstreetmap/tiles.json?key=${key}`, // source URL
+        tileSize: 512,
+        crossOrigin: 'anonymous'
+      });
 
-<script>
-      
-const key = 'i39Qg6QqR6C1s4K7BGko';
-
-      var map = L.map('map').setView([-33.5, 20], 7);
-map.setMinZoom(7);
-map.setMaxBounds([[-36, 15], [-29, 25]]);
-const gl = L.maplibreGL({
-        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
-        style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${key}`
-            }).addTo(map);
-</script>
-</body>
+      const map = new ol.Map({
+        layers: [
+          new ol.layer.Tile({
+            source: source
+          })
+        ],
+        controls: ol.control.defaults.defaults({attribution: false}).extend([attribution]),
+        target: 'map',
+        view: new ol.View({
+          constrainResolution: true,
+          center: ol.proj.fromLonLat([16.62662018, 49.2125578]), // starting position [lng, lat]
+          zoom: 14 // starting zoom
+        })
+      });
+    </script>
+  </body>
 </html>
