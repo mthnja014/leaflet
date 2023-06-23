@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>#</title>
+</head>
+<style type="text/css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+#map {
+position: absolute;
+right: 0px;
+left: 0px;
+top: 0px;
+bottom: 0px;
+}
+</style>
+<body>
+
+<div id="map">
+
+<script>
+      
+const key = 'i39Qg6QqR6C1s4K7BGko';
+
+      var map = L.map('map').setView([-33.5, 20], 7);
+map.setMinZoom(7);
+map.setMaxBounds([[-36, 15], [-29, 25]]);
+const gl = L.maplibreGL({
+        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
+        style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${key}`
+            }).addTo(map);
+</script>
+</body>
+</html>
